@@ -1,0 +1,13 @@
+---
+version: 2
+models:
+  - name: stg_payments
+    description: "{{doc('stg_payments_table')}}"
+    columns: 
+      - name: order_id
+        tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+              
+              
