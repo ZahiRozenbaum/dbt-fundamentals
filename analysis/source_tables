@@ -1,8 +1,0 @@
-select *
-from  RAW.JAFFLE_SHOP.CUSTOMERS;
-
-select *
-from RAW.JAFFLE_SHOP.ORDERS;
-
-select *
-from RAW.STRIPE.PAYMENT
