@@ -1,3 +1,5 @@
-select orderid as order_id,status, sum(amount) as amount
+select orderid as order_id,status,PAYMENTMETHOD, sum(amount) as amount
 from {{source('stripe','payment')}}
-group by orderid,status
+where status='success'
+group by orderid,status,PAYMENTMETHOD
+order by order_id
