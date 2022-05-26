@@ -1,8 +1,13 @@
-{%- set list_PAYMENTMETHOD = ['credit_card', 'coupon', 'bank_transfer','gift_card'] -%}
+--{%- set list_PAYMENTMETHOD = ['credit_card', 'coupon', 'bank_transfer','gift_card'] -%}
 
-with  stg_payments as
+-- Returns a list of the payment_methods in the stg_payments model_
+
+
+with  stg_payments_cte as
 (select *
 from {{ref('stg_payments')}})
+
+{%- set list_PAYMENTMETHOD = dbt_utils.get_column_values(table=ref('stg_payments'), column='PAYMENTMETHOD') -%}
 
 select ORDER_ID, 
 {% for PAYMENTMETHOD in  list_PAYMENTMETHOD %}
@@ -12,6 +17,6 @@ sum(case when PAYMENTMETHOD='{{PAYMENTMETHOD}}' then amount else 0 end) as {{PAY
     {%- endif -%}
 
 {%- endfor %}
-from stg_payments
+from stg_payments_cte
 group by ORDER_ID
 order by order_id
