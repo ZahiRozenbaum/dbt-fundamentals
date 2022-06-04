@@ -4,5 +4,5 @@ select
         order_date,
         status
     from  {{source('jaffle_shop','orders')}}
-    {{limit_data_in_dev('_ETL_LOADED_AT', 30)}}
+   -- {{limit_data_in_dev('_ETL_LOADED_AT', 30)}}
 
