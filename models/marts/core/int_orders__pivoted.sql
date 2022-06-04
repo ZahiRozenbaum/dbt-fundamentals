@@ -7,7 +7,9 @@ with  stg_payments_cte as
 (select *
 from {{ref('stg_payments')}})
 
+{% if execute %}
 {%- set list_PAYMENTMETHOD = dbt_utils.get_column_values(table=ref('stg_payments'), column='PAYMENTMETHOD') -%}
+
 
 select ORDER_ID, 
 {% for PAYMENTMETHOD in  list_PAYMENTMETHOD %}
@@ -20,3 +22,4 @@ sum(case when PAYMENTMETHOD='{{PAYMENTMETHOD}}' then amount else 0 end) as {{PAY
 from stg_payments_cte
 group by ORDER_ID
 order by order_id
+{% endif %}
