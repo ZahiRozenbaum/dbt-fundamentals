@@ -1,7 +1,8 @@
 with payment as
 (
     select *  from {{source('stripe','payment')}}
-    {{limit_data_in_dev('_BATCHED_AT', 30)}}
+  --
+  --  {{limit_data_in_dev('_BATCHED_AT', 30)}}
 )
 
 
